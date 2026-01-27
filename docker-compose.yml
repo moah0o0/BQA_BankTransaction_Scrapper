@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postbank-scrapper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: postbank-scrapper
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+      # PocketBase 설정 (config.py에서 사용)
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # 로그 볼륨 (선택사항)
+      - ./logs:/app/logs
+    networks:
+      - app-network
+    # 리소스 제한 (가볍게 실행됨)
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 128M
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+    # 로깅 설정
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  app-network:
+    name: app-network
+    external: true
