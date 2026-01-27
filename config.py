@@ -16,9 +16,9 @@ class Config:
 # ============================================
 
 config = Config(
-    pb_url=os.getenv("PB_URL", "https://api-money.busanqueeract.kr"),
-    pb_user=os.getenv("PB_USER", "scrapper@busanqueeract.kr"),
-    pb_pass=os.getenv("PB_PASS", "5bPpn3Q372gh1bW"),
+    pb_url=os.getenv("PB_URL") or "",
+    pb_user=os.getenv("PB_USER") or "",
+    pb_pass=os.getenv("PB_PASS") or "",
     thread_pool_size=int(os.getenv("THREAD_POOL_SIZE", "8")),
     default_interval=int(os.getenv("DEFAULT_INTERVAL", "60")),
 )

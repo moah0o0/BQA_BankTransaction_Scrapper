@@ -9,8 +9,14 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Asia/Seoul
-      # PocketBase 설정 (config.py에서 사용)
       - PYTHONUNBUFFERED=1
+      # PocketBase 설정 (필수)
+      - PB_URL=${PB_URL}
+      - PB_USER=${PB_USER}
+      - PB_PASS=${PB_PASS}
+      # 선택사항
+      - THREAD_POOL_SIZE=${THREAD_POOL_SIZE:-8}
+      - DEFAULT_INTERVAL=${DEFAULT_INTERVAL:-60}
     volumes:
       # 로그 볼륨 (선택사항)
       - ./logs:/app/logs
