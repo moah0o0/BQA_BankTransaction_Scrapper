@@ -41,4 +41,5 @@ services:
 networks:
   app-network:
     name: app-network
-    external: true
+    driver: bridge
+    # external: true  # Coolify에서는 주석 처리. 필요시 외부 네트워크 사용 가능
