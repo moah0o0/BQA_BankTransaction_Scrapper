@@ -23,6 +23,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
     "X-Requested-With": "XMLHttpRequest",
 }
+REQUEST_TIMEOUT = 30  # 응답 없을 때 job이 영원히 멈추는 것 방지 (max_instances=1)
 TYPE_MAP = {"입금": "수입", "지급": "지출", "지급취소": "수입"}
 PERIOD_DELTA = {
     "month": relativedelta(months=1) - relativedelta(days=1),
@@ -61,7 +62,7 @@ class PostbankScrapper:
             "IHSICHinqDvsnS1": "1",
             "IHSICHinqSeqCdS1": "1",
         }
-        resp = self.session.post(API_URL, headers=HEADERS, data=data)
+        resp = self.session.post(API_URL, headers=HEADERS, data=data, timeout=REQUEST_TIMEOUT)
         resp.raise_for_status()
         return resp.json()
 

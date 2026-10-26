@@ -12,7 +12,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from pocketbase import PocketBase
 from zoneinfo import ZoneInfo
 
-from config import Config, config
+from config import Config, config, validate
 from scrapper import PostbankScrapper
 
 logging.basicConfig(
@@ -65,7 +65,8 @@ class App:
             owner_birth=getattr(record, "owner_birth", ""),
             init_date=getattr(record, "init_date", ""),
             update_period=getattr(record, "update_period", "month"),
-            interval_seconds=getattr(record, "interval_seconds", self.config.default_interval),
+            # 빈 숫자 필드는 0으로 오므로 기본값 사용 (0이면 APScheduler가 1초마다 실행함)
+            interval_seconds=int(getattr(record, "interval_seconds", 0) or self.config.default_interval),
             remove_list=remove_list,
         )
 
@@ -188,6 +189,7 @@ class App:
 
 
 def main() -> None:
+    validate(config)
     app = App(config)
 
     def shutdown(*_):
