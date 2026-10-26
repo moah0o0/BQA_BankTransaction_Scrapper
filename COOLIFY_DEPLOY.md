@@ -30,7 +30,7 @@ Coolify의 Environment Variables 섹션에서 다음 환경변수를 설정합�
 # 필수 환경변수
 PB_URL=https://api-money.busanqueeract.kr
 PB_USER=scrapper@busanqueeract.kr
-PB_PASS=5bPpn3Q372gh1bW
+PB_PASS=your_password_here
 
 # 선택사항 (기본값 사용 가능)
 THREAD_POOL_SIZE=8
